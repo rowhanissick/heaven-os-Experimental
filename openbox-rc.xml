@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc">
+  <theme>
+    <name>Clearlooks</name>
+    <!-- Titlebar layout: C (Close only), NO 'I' (Minimize/Iconify) and NO 'M' (Maximize/Restore) -->
+    <!-- This removes the minimize button completely! -->
+    <titleLayout>LC</titleLayout>
+    <keepBorder>no</keepBorder>
+    <animateIconify>no</animateIconify>
+    <font place="ActiveWindow">
+      <name>sans</name>
+      <size>10</size>
+      <weight>bold</weight>
+      <slant>normal</slant>
+    </font>
+  </theme>
+
+  <!-- Desktops: Single desktop only, no workspace switching -->
+  <desktops>
+    <number>1</number>
+    <firstdesk>1</firstdesk>
+    <names>
+      <name>HeavenOS-App</name>
+    </names>
+  </desktops>
+
+  <resize>
+    <drawContents>yes</drawContents>
+    <popupShow>Never</popupShow>
+  </resize>
+
+  <!-- Keyboard Shortcuts: Trap/disable keys that allow escaping or minimizing -->
+  <keyboard>
+    <!-- Disable Alt+Tab (no task switching) -->
+    <keybind key="A-Tab">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <!-- Disable Super/Windows key -->
+    <keybind key="W-d">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <keybind key="W-m">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <!-- Disable Minimize window shortcuts -->
+    <keybind key="A-F9">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <keybind key="A-space">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+  </keyboard>
+
+  <!-- Mouse actions: Disable root window desktop menus (no right click menu on wallpaper) -->
+  <mouse>
+    <context name="Root">
+      <!-- Right click, middle click, left click on desktop do nothing -->
+    </context>
+    
+    <!-- Titlebar buttons: Double click cannot un-maximize or shade -->
+    <context name="Titlebar">
+      <mousebind button="Left" action="DoubleClick">
+        <action name="ToggleMaximize"/>
+      </mousebind>
+    </context>
+  </mouse>
+
+  <!-- Applications Rules: Lock Google Chrome and any app to permanent maximized state -->
+  <applications>
+    <application class="*">
+      <decor>yes</decor>
+      <maximized>yes</maximized>
+      <iconic>no</iconic>
+      <skip_taskbar>yes</skip_taskbar>
+      <skip_pager>yes</skip_pager>
+    </application>
+
+    <application class="Google-chrome">
+      <maximized>yes</maximized>
+      <decor>yes</decor>
+      <iconic>no</iconic>
+      <fullscreen>no</fullscreen>
+    </application>
+  </applications>
+</openbox_config>
