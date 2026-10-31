@@ -2,17 +2,10 @@
 <openbox_config xmlns="http://openbox.org/3.4/rc">
   <theme>
     <name>Clearlooks</name>
-    <!-- Titlebar layout: C (Close only), NO 'I' (Minimize/Iconify) and NO 'M' (Maximize/Restore) -->
-    <!-- This removes the minimize button completely! -->
+    <!-- Titlebar layout: LC (No minimize 'I') -->
     <titleLayout>LC</titleLayout>
     <keepBorder>no</keepBorder>
     <animateIconify>no</animateIconify>
-    <font place="ActiveWindow">
-      <name>sans</name>
-      <size>10</size>
-      <weight>bold</weight>
-      <slant>normal</slant>
-    </font>
   </theme>
 
   <!-- Desktops: Single desktop only, no workspace switching -->
@@ -31,21 +24,18 @@
 
   <!-- Keyboard Shortcuts: Trap/disable keys that allow escaping or minimizing -->
   <keyboard>
-    <!-- Disable Alt+Tab (no task switching) -->
     <keybind key="A-Tab">
       <action name="Execute"><command>/bin/true</command></action>
     </keybind>
     <keybind key="A-S-Tab">
       <action name="Execute"><command>/bin/true</command></action>
     </keybind>
-    <!-- Disable Super/Windows key -->
     <keybind key="W-d">
       <action name="Execute"><command>/bin/true</command></action>
     </keybind>
     <keybind key="W-m">
       <action name="Execute"><command>/bin/true</command></action>
     </keybind>
-    <!-- Disable Minimize window shortcuts -->
     <keybind key="A-F9">
       <action name="Execute"><command>/bin/true</command></action>
     </keybind>
@@ -63,7 +53,13 @@
     <!-- Titlebar buttons: Double click cannot un-maximize or shade -->
     <context name="Titlebar">
       <mousebind button="Left" action="DoubleClick">
-        <action name="ToggleMaximize"/>
+        <action name="Focus"/>
+      </mousebind>
+    </context>
+
+    <context name="Iconify">
+      <mousebind button="Left" action="Press">
+        <action name="Focus"/>
       </mousebind>
     </context>
   </mouse>
