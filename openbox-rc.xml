@@ -2,18 +2,19 @@
 <openbox_config xmlns="http://openbox.org/3.4/rc">
   <theme>
     <name>Clearlooks</name>
-    <!-- Titlebar layout: LC (No minimize 'I') -->
-    <titleLayout>LC</titleLayout>
-    <keepBorder>no</keepBorder>
-    <animateIconify>no</animateIconify>
+    <!-- Titlebar layout: N (Icon/Title), L (Label), I (Minimize/Iconify), M (Maximize), C (Close) -->
+    <!-- Minimize button is enabled as requested! -->
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+    <animateIconify>yes</animateIconify>
   </theme>
 
-  <!-- Desktops: Single desktop only -->
+  <!-- Single Desktop -->
   <desktops>
     <number>1</number>
     <firstdesk>1</firstdesk>
     <names>
-      <name>HeavenOS-App</name>
+      <name>HeavenOS</name>
     </names>
   </desktops>
 
@@ -24,7 +25,7 @@
 
   <!-- Keyboard Shortcuts -->
   <keyboard>
-    <!-- Ctrl + Tab: Switch to Next Allowed App Window -->
+    <!-- Ctrl + Tab: Switch App -->
     <keybind key="C-Tab">
       <action name="NextWindow">
         <finalactions>
@@ -36,19 +37,7 @@
       </action>
     </keybind>
 
-    <!-- Ctrl + Shift + Tab: Switch to Previous Allowed App Window -->
-    <keybind key="C-S-Tab">
-      <action name="PreviousWindow">
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-          <action name="Maximize"/>
-        </finalactions>
-      </action>
-    </keybind>
-
-    <!-- Also allow standard Alt + Tab to switch between allowed apps -->
+    <!-- Alt + Tab: Switch App -->
     <keybind key="A-Tab">
       <action name="NextWindow">
         <finalactions>
@@ -60,63 +49,36 @@
       </action>
     </keybind>
 
-    <keybind key="A-S-Tab">
-      <action name="PreviousWindow">
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-          <action name="Maximize"/>
-        </finalactions>
-      </action>
+    <!-- BLOCK Terminal shortcuts completely -->
+    <keybind key="C-A-t">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <keybind key="C-A-T">
+      <action name="Execute"><command>/bin/true</command></action>
+    </keybind>
+    <keybind key="F12">
+      <action name="Execute"><command>/bin/true</command></action>
     </keybind>
 
-    <!-- Trap keys that could escape or minimize -->
+    <!-- Block OS Escapes -->
     <keybind key="W-d"><action name="Execute"><command>/bin/true</command></action></keybind>
     <keybind key="W-m"><action name="Execute"><command>/bin/true</command></action></keybind>
-    <keybind key="A-F9"><action name="Execute"><command>/bin/true</command></action></keybind>
-    <keybind key="A-space"><action name="Execute"><command>/bin/true</command></action></keybind>
   </keyboard>
 
-  <!-- Mouse actions: Disable desktop right-click menu -->
+  <!-- Mouse actions -->
   <mouse>
     <context name="Root">
-      <!-- Desktop clicking does nothing -->
-    </context>
-    
-    <context name="Titlebar">
-      <mousebind button="Left" action="DoubleClick">
-        <action name="Focus"/>
-      </mousebind>
-    </context>
-
-    <context name="Iconify">
-      <mousebind button="Left" action="Press">
-        <action name="Focus"/>
-      </mousebind>
+      <!-- Right-click desktop menu completely disabled (No terminal or menu access) -->
     </context>
   </mouse>
 
-  <!-- Applications Rules: Enforce all open windows to stay Maximized with no minimize -->
+  <!-- Window Rules: Keep apps maximized by default -->
   <applications>
     <application class="*">
       <decor>yes</decor>
       <maximized>yes</maximized>
-      <iconic>no</iconic>
       <skip_taskbar>yes</skip_taskbar>
       <skip_pager>yes</skip_pager>
-    </application>
-
-    <application class="Google-chrome">
-      <maximized>yes</maximized>
-      <decor>yes</decor>
-      <iconic>no</iconic>
-    </application>
-
-    <application class="Blender">
-      <maximized>yes</maximized>
-      <decor>yes</decor>
-      <iconic>no</iconic>
     </application>
   </applications>
 </openbox_config>

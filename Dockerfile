@@ -6,16 +6,16 @@
 FROM lscr.io/linuxserver/webtop:ubuntu-openbox
 
 LABEL maintainer="HeavenOS"
-LABEL description="HeavenOS Multi-App Locked Kiosk with Ctrl+Tab Switcher"
-LABEL version="4.0"
+LABEL description="HeavenOS Multi-App Locked Kiosk with Smart Window Guard"
+LABEL version="5.0"
 
-# Can accept single app (e.g. "blender") or multiple apps (e.g. "blender chrome")
+# Target apps argument (e.g. "blender" or "blender chrome")
 ARG TARGET_APP=chrome
 
 ENV PUID=1000
 ENV PGID=1000
 ENV TZ=Asia/Kolkata
-ENV TITLE="HeavenOS - App Kiosk"
+ENV TITLE="HeavenOS"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV FRAME_RATE=60
 ENV CUSTOM_FRAME_RATE=60
@@ -27,7 +27,7 @@ ENV APP_MODE=${TARGET_APP}
 
 EXPOSE 3000
 
-# 1. Base Setup: Essential X11 tools, sound & lock packages (Fast ~150MB)
+# 1. Base Setup: Essential X11 tools, sound & lock packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         software-properties-common ca-certificates curl wget gnupg \
@@ -80,10 +80,13 @@ RUN mkdir -p /tmp/downloads && \
     rm -rf /tmp/downloads /var/lib/apt/lists/* /var/tmp/* /tmp/* && \
     apt-get clean
 
+# 3. Disable Terminal for normal sessions
+RUN chmod 000 /usr/bin/xfce4-terminal /usr/bin/xterm /usr/bin/uxterm 2>/dev/null || true
+
 # Copy Lotus wallpaper
 COPY Lotus-Wallpaper-Upscaled16x.png /lotus-wallpaper.png
 
-# Copy Openbox locked configuration (With Ctrl+Tab app switcher & no minimize)
+# Copy Openbox locked configuration (With Smart Minimize & No Desktop access)
 COPY openbox-rc.xml /etc/openbox/locked-rc.xml
 
 # Copy App Watchdog supervisor script
