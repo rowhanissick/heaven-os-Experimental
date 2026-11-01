@@ -1,40 +1,39 @@
 ====================================================================
-      HEAVENOS KIOSK MODE - GOOGLE CHROME (LOCKED ACCESS)
+      HEAVENOS KIOSK MODE - SINGLE & DUAL APP LOCKED SYSTEM
 ====================================================================
 
-NOTE: Yeh experimental version hai jisme:
-- Koi Desktop ya Taskbar/Dock nahi hai
-- Minimize button completely disabled / removed hai
-- Sirf Google Chrome chalega Fullscreen me
-- User agar Chrome band bhi karega toh watchdog use 1 second me auto-restart kar dega
+FEATURES:
+- Full Locked Access: Zero Desktop, Zero Dock, Zero Taskbar, Zero Escape.
+- Anti-Minimize: Minimize button disabled; auto-restores if clicked.
+- On-Demand Download: Sirf wahi apps download hongi jo command me doge!
+- App Switcher: Agar 2 apps run kar rahe ho, toh "Ctrl + Tab" (ya "Alt + Tab")
+  daba kar dono apps ke beech switch kar sakte ho!
 
 --------------------------------------------------------------------
-STEP 1: GOOGLE CLOUD SHELL ME FOLDER UPLOAD / CLONE KARO
+EXAMPLES:
 --------------------------------------------------------------------
-1. Google Cloud Shell terminal open karo (https://console.cloud.google.com/)
-2. Is folder (HeavenOS-Kiosk) ko GitHub repo se clone karo ya direct Cloud Shell me paste karo:
-   cd HeavenOS-Kiosk
+
+1. DUAL APP MODE (e.g. Blender + Chrome):
+   bash start_kiosk.sh blender chrome
+   --> User "Ctrl + Tab" dabakar Blender aur Chrome me switch karega.
+
+2. DUAL APP MODE (e.g. VS Code + Chrome):
+   bash start_kiosk.sh vscode chrome
+
+3. DUAL APP MODE (e.g. Discord + Chrome):
+   bash start_kiosk.sh discord chrome
+
+4. SINGLE APP MODE:
+   bash start_kiosk.sh blender
+   bash start_kiosk.sh chrome
 
 --------------------------------------------------------------------
-STEP 2: RUN KIOSK CONTAINER
+CLOUDFLARE PUBLIC LINK:
 --------------------------------------------------------------------
-Command chalao:
-   bash start_kiosk.sh
-
-Container build ho kar Port 8888 par start ho jayega!
+curl -sL --output cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared && ./cloudflared tunnel --url http://localhost:8888
 
 --------------------------------------------------------------------
-STEP 3: CLOUDFLARE PUBLIC LINK GENERATE KARO
+STOP SESSION:
 --------------------------------------------------------------------
-Terminal me command chalao:
-   curl -sL --output cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared && ./cloudflared tunnel --url http://localhost:8888
-
-Output me https://xxxx.trycloudflare.com link milegi.
-Browser me link open karte hi direct Google Chrome samne hoga, bina kisi desktop ya minimize button ke!
-
---------------------------------------------------------------------
-STEP 4: CONTAINER STOP KARNA
---------------------------------------------------------------------
-Terminal me command chalao:
-   bash stop_kiosk.sh
+bash stop_kiosk.sh
 ====================================================================

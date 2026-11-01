@@ -8,7 +8,7 @@
     <animateIconify>no</animateIconify>
   </theme>
 
-  <!-- Desktops: Single desktop only, no workspace switching -->
+  <!-- Desktops: Single desktop only -->
   <desktops>
     <number>1</number>
     <firstdesk>1</firstdesk>
@@ -22,35 +22,68 @@
     <popupShow>Never</popupShow>
   </resize>
 
-  <!-- Keyboard Shortcuts: Trap/disable keys that allow escaping or minimizing -->
+  <!-- Keyboard Shortcuts -->
   <keyboard>
+    <!-- Ctrl + Tab: Switch to Next Allowed App Window -->
+    <keybind key="C-Tab">
+      <action name="NextWindow">
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
+          <action name="Maximize"/>
+        </finalactions>
+      </action>
+    </keybind>
+
+    <!-- Ctrl + Shift + Tab: Switch to Previous Allowed App Window -->
+    <keybind key="C-S-Tab">
+      <action name="PreviousWindow">
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
+          <action name="Maximize"/>
+        </finalactions>
+      </action>
+    </keybind>
+
+    <!-- Also allow standard Alt + Tab to switch between allowed apps -->
     <keybind key="A-Tab">
-      <action name="Execute"><command>/bin/true</command></action>
+      <action name="NextWindow">
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
+          <action name="Maximize"/>
+        </finalactions>
+      </action>
     </keybind>
+
     <keybind key="A-S-Tab">
-      <action name="Execute"><command>/bin/true</command></action>
+      <action name="PreviousWindow">
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
+          <action name="Maximize"/>
+        </finalactions>
+      </action>
     </keybind>
-    <keybind key="W-d">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
-    <keybind key="W-m">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
-    <keybind key="A-F9">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
-    <keybind key="A-space">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
+
+    <!-- Trap keys that could escape or minimize -->
+    <keybind key="W-d"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <keybind key="W-m"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <keybind key="A-F9"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <keybind key="A-space"><action name="Execute"><command>/bin/true</command></action></keybind>
   </keyboard>
 
-  <!-- Mouse actions: Disable root window desktop menus (no right click menu on wallpaper) -->
+  <!-- Mouse actions: Disable desktop right-click menu -->
   <mouse>
     <context name="Root">
-      <!-- Right click, middle click, left click on desktop do nothing -->
+      <!-- Desktop clicking does nothing -->
     </context>
     
-    <!-- Titlebar buttons: Double click cannot un-maximize or shade -->
     <context name="Titlebar">
       <mousebind button="Left" action="DoubleClick">
         <action name="Focus"/>
@@ -64,7 +97,7 @@
     </context>
   </mouse>
 
-  <!-- Applications Rules: Lock Google Chrome and any app to permanent maximized state -->
+  <!-- Applications Rules: Enforce all open windows to stay Maximized with no minimize -->
   <applications>
     <application class="*">
       <decor>yes</decor>
@@ -78,7 +111,12 @@
       <maximized>yes</maximized>
       <decor>yes</decor>
       <iconic>no</iconic>
-      <fullscreen>no</fullscreen>
+    </application>
+
+    <application class="Blender">
+      <maximized>yes</maximized>
+      <decor>yes</decor>
+      <iconic>no</iconic>
     </application>
   </applications>
 </openbox_config>
