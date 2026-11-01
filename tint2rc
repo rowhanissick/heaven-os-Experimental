@@ -1,0 +1,53 @@
+# ====================================================================
+#  HeavenOS - Sleek Sandboxed Dock / Taskbar (tint2)
+# ====================================================================
+
+# Background 1: Panel Background (Dark Glass)
+rounded = 8
+border_width = 1
+background_color = #141416 90
+border_color = #ffffff 25
+
+# Background 2: Active Task Highlight
+rounded = 6
+border_width = 1
+background_color = #3a3f4b 95
+border_color = #61afef 70
+
+# Panel
+panel_monitor = all
+panel_position = bottom center horizontal
+panel_size = 90% 44
+panel_margin = 0 8
+panel_padding = 6 4 4
+panel_background_id = 1
+panel_dock = 0
+panel_layer = top
+
+# Taskbar
+taskbar_mode = single_desktop
+taskbar_padding = 4 2 4
+taskbar_background_id = 0
+taskbar_active_background_id = 2
+taskbar_name = 0
+taskbar_hide_inactive_tasks = 0
+taskbar_hide_different_monitor = 0
+taskbar_always_show_all_desktop_tasks = 1
+taskbar_sort_order = none
+
+# Tasks (Windows)
+task_icon = 1
+task_text = 1
+task_centered = 1
+task_maximum_size = 200 34
+task_padding = 8 3
+task_font = Sans 10
+task_font_color = #ffffff 80
+task_active_font_color = #ffffff 100
+
+# Mouse Actions: Left click toggles minimize/restore!
+mouse_left = toggle_iconify
+mouse_middle = none
+mouse_right = close
+mouse_scroll_up = none
+mouse_scroll_down = none

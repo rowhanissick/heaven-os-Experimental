@@ -1,30 +1,42 @@
 ====================================================================
-      HEAVENOS KIOSK - SMART WINDOW GUARD & TERMINAL LOCK
+      HEAVENOS - SANDBOXED DESKTOP WITH HOT APP INSTALLER
 ====================================================================
 
-RULES & BEHAVIOR:
-1. Normal Window Controls:
-   - Window ke upar Minimize (_), Maximize ([]), aur Close (X) buttons dikhenge!
-2. Smart Minimize Guard (Zero Desktop Access):
-   - User minimize kar sakta hai, LEKIN hamesha kam se kam 1 app screen par rahegi!
-   - Agar dono apps ko minimize karne ki koshish ki, toh system desktop kabhi nahi
-     dikhayega — dusri app turant un-minimize ho kar screen occupy kar legi!
-3. Terminal Disabled:
-   - Terminals (xfce4-terminal, xterm) ko normal sessions ke liye completely disable/lock
-     kar diya gaya hai.
-   - Ctrl+Alt+T ya koi shortcut kaam nahi karega.
-4. App Switching:
-   - User "Ctrl + Tab" ya "Alt + Tab" se bhi apps switch kar sakta hai.
+FEATURES:
+1. Normal Desktop & Window Experience:
+   - Window minimize, maximize, close bilkul normal kaam karte hain.
+   - Screen ke bottom par ek sleek glass dock/taskbar hai — jab app minimize
+     hogi, toh dock par icon click karke user wapis open kar sakta hai!
+2. Strict Security & Sandboxing:
+   - Terminal is COMPLETELY DISABLED (Ctrl+Alt+T ya terminal commands blocked).
+   - Desktop par Right-Click completely disabled hai (kuch open nahi ho sakta).
+   - Default app: Sirf Google Chrome chalta hai.
+3. Hot In-Session App Installer (Without Terminating):
+   - Agar session chal raha hai aur user/worker ko koi aur app chahiye,
+     toh terminal me simply command chalao:
+     bash add_app.sh blender
+     --> Blender download hoke bina session restart kiye direct live screen pe launch ho jayega!
 
 --------------------------------------------------------------------
-RUN COMMANDS (Google Cloud Shell):
+STEP 1: CLEANUP OLD SESSIONS
 --------------------------------------------------------------------
-1. Blender + Chrome Session:
-   bash start_kiosk.sh blender chrome
+docker rm -f $(docker ps -aq) 2>/dev/null ; pkill -f cloudflared 2>/dev/null ; rm -rf heaven-os-Experimental
 
-2. Single App Session:
-   bash start_kiosk.sh chrome
+--------------------------------------------------------------------
+STEP 2: FRESH CLONE & START
+--------------------------------------------------------------------
+git clone https://github.com/rowhanissick/heaven-os-Experimental.git && cd heaven-os-Experimental && bash start_kiosk.sh
 
-3. Public Web Link:
-   curl -sL --output cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared && ./cloudflared tunnel --url http://localhost:8888
+--------------------------------------------------------------------
+STEP 3: CLOUDFLARE PUBLIC LINK
+--------------------------------------------------------------------
+curl -sL --output cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared && ./cloudflared tunnel --url http://localhost:8888
+
+--------------------------------------------------------------------
+STEP 4: LIVE APP ADD KARO (Bina Session Band Kiye)
+--------------------------------------------------------------------
+Terminal me bas ye command run karo:
+   bash add_app.sh blender
+   bash add_app.sh discord
+   bash add_app.sh vscode
 ====================================================================

@@ -2,14 +2,12 @@
 <openbox_config xmlns="http://openbox.org/3.4/rc">
   <theme>
     <name>Clearlooks</name>
-    <!-- Titlebar layout: N (Icon/Title), L (Label), I (Minimize/Iconify), M (Maximize), C (Close) -->
-    <!-- Minimize button is enabled as requested! -->
+    <!-- Titlebar layout: N (Icon), L (Title), I (Minimize), M (Maximize), C (Close) -->
     <titleLayout>NLIMC</titleLayout>
     <keepBorder>yes</keepBorder>
     <animateIconify>yes</animateIconify>
   </theme>
 
-  <!-- Single Desktop -->
   <desktops>
     <number>1</number>
     <firstdesk>1</firstdesk>
@@ -25,60 +23,104 @@
 
   <!-- Keyboard Shortcuts -->
   <keyboard>
-    <!-- Ctrl + Tab: Switch App -->
-    <keybind key="C-Tab">
-      <action name="NextWindow">
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-          <action name="Maximize"/>
-        </finalactions>
-      </action>
-    </keybind>
-
-    <!-- Alt + Tab: Switch App -->
+    <!-- Window Switching -->
     <keybind key="A-Tab">
       <action name="NextWindow">
         <finalactions>
           <action name="Focus"/>
           <action name="Raise"/>
           <action name="Unshade"/>
-          <action name="Maximize"/>
+        </finalactions>
+      </action>
+    </keybind>
+    <keybind key="C-Tab">
+      <action name="NextWindow">
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
         </finalactions>
       </action>
     </keybind>
 
-    <!-- BLOCK Terminal shortcuts completely -->
-    <keybind key="C-A-t">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
-    <keybind key="C-A-T">
-      <action name="Execute"><command>/bin/true</command></action>
-    </keybind>
-    <keybind key="F12">
-      <action name="Execute"><command>/bin/true</command></action>
+    <!-- Minimize Shortcut (Alt + F9 or Super + Down) -->
+    <keybind key="A-F9">
+      <action name="Iconify"/>
     </keybind>
 
-    <!-- Block OS Escapes -->
-    <keybind key="W-d"><action name="Execute"><command>/bin/true</command></action></keybind>
-    <keybind key="W-m"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <!-- BLOCK Terminal shortcuts completely -->
+    <keybind key="C-A-t"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <keybind key="C-A-T"><action name="Execute"><command>/bin/true</command></action></keybind>
+    <keybind key="F12"><action name="Execute"><command>/bin/true</command></action></keybind>
   </keyboard>
 
-  <!-- Mouse actions -->
+  <!-- Mouse Actions -->
   <mouse>
+    <!-- CRITICAL: Root desktop menu is empty. Right-clicking the desktop does NOTHING! -->
     <context name="Root">
-      <!-- Right-click desktop menu completely disabled (No terminal or menu access) -->
+    </context>
+
+    <!-- Window Border Resizing -->
+    <context name="Top">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Resize"><edge>top</edge></action></mousebind>
+    </context>
+    <context name="Left">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Resize"><edge>left</edge></action></mousebind>
+    </context>
+    <context name="Right">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Resize"><edge>right</edge></action></mousebind>
+    </context>
+    <context name="Bottom">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Resize"><edge>bottom</edge></action></mousebind>
+    </context>
+
+    <!-- Titlebar Dragging and Double-Click Maximize -->
+    <context name="Titlebar">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximize"/></mousebind>
+    </context>
+
+    <context name="Title">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximize"/></mousebind>
+    </context>
+
+    <!-- MINIMIZE (ICONIFY) BUTTON ACTION -->
+    <context name="Iconify">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Left" action="Click"><action name="Iconify"/></mousebind>
+    </context>
+
+    <!-- MAXIMIZE BUTTON ACTION -->
+    <context name="Maximize">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Click"><action name="ToggleMaximize"/></mousebind>
+    </context>
+
+    <!-- CLOSE BUTTON ACTION -->
+    <context name="Close">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/><action name="Unshade"/></mousebind>
+      <mousebind button="Left" action="Click"><action name="Close"/></mousebind>
+    </context>
+
+    <!-- Window Inside Content -->
+    <context name="Client">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Middle" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="Right" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
     </context>
   </mouse>
 
-  <!-- Window Rules: Keep apps maximized by default -->
+  <!-- Applications Rules -->
   <applications>
     <application class="*">
       <decor>yes</decor>
-      <maximized>yes</maximized>
-      <skip_taskbar>yes</skip_taskbar>
-      <skip_pager>yes</skip_pager>
     </application>
   </applications>
 </openbox_config>
